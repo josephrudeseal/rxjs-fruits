@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Exercise } from './exercise';
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { Operator, OperatorInfo } from './operator-info.interface';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +14,17 @@ export class ExerciseService {
     fruits: [],
     expectedFruits: [],
     minPositionLineNumber: 0,
-    positionColumnNumber: 0
+    positionColumnNumber: 0,
   };
+
+  constructor(private http: HttpClient) {
+    // this.operatorInfo.next(this.http.get<Operator[]>('assets/operator-info.json').pipe(map((info) => info.)));
+    this.http.get<Observable<Operator[]>>('assets/operator-info.json').pipe(
+      tap((info) => console.log(info)),
+    );
+  }
+
+  private operatorInfo = new Subject<Operator[]>();
 
   assertionChecked$ = new Subject<boolean>();
   exerciseChanged$ = new Subject<Exercise>();

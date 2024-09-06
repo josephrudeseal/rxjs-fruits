@@ -25,7 +25,8 @@ const routes: Routes = [
       { path: 'skip-last', loadChildren: () => import('./exercises/skip-last/skip-last.module').then(m => m.SkipLastModule) },
       { path: 'skiplast-skip-merge', loadChildren: () => import('./exercises/skiplast-skip-merge/skiplast-skip-merge.module').then(m => m.SkiplastSkipMergeModule) },
       { path: 'zip-concatmap', loadChildren: () => import('./exercises/zip-concatmap/zip-concatmap.module').then(m => m.ZipConcatmapModule) },
-      { path: 'repeat', loadChildren: () => import('./exercises/repeat/repeat.module').then(m => m.RepeatModule) }
+      { path: 'repeat', loadChildren: () => import('./exercises/repeat/repeat.module').then(m => m.RepeatModule) },
+      { path: 'group-by', loadChildren: () => import('./exercises/group-by/group-by.module').then(m => m.GroupByModule) }
     ]
   },
   { path: 'privacy', component: PrivacyComponent },

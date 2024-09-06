@@ -15,6 +15,7 @@ import { distinct as distinctX, map as mapX, take as takeX, filter as filterX } 
 import { tap as tapX, distinctUntilChanged as distinctUntilChangedX } from 'rxjs/operators';
 import { skip as skipX, takeLast as takeLastX, skipLast as skipLastX, concatMap as concatMapX } from 'rxjs/operators';
 import { repeat as repeatX, takeWhile as takeWhileX, retry as retryX, catchError as catchErrorX } from 'rxjs/operators';
+import { groupBy as groupByX } from 'rxjs/operators';
 import { gsap } from 'gsap';
 import { MonacoEditorComponent, MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
 import { GameOverDialogComponent } from '../game-over-dialog/game-over-dialog.component';
@@ -27,6 +28,8 @@ import { TypescriptService } from './shared/typescript.service';
 import { OnChange } from 'property-watch-decorator';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { OperatorInfo, Operator as rxjsOperator } from '../shared/operator-info.interface';
+import * as Rx from 'rxjs-compat/operator';
 
 @Component({
   selector: 'app-game',
@@ -66,7 +69,8 @@ export class GameComponent implements OnInit {
   lastFruitColor = '';
   liquidAnimationTimeline: GSAPTimeline = gsap.timeline();
   fruitAnimationTimelines: GSAPTimeline[] = [];
-
+  currentOperatorInfo: OperatorInfo = {};
+  operatorsByCategory: rxjsOperator[] = [];
   @OnChange<string>(function (this: GameComponent, code: string) {
     if (this.isRunActive) {
       this.cancel();
@@ -181,6 +185,7 @@ export class GameComponent implements OnInit {
                   data,
                   ''
                 );
+                // (window as any).monaco.languages.typescript.typescriptDefaults.addExtraLib(Rx, '');
               }
             });
 
@@ -445,6 +450,7 @@ export class GameComponent implements OnInit {
     const zip = zipX;
     const concatMap = concatMapX;
     const forkJoin = forkJoinX;
+    const groupBy = groupByX;
 
     const transpiledCode = this.typescriptService.transpile(this.code);
     eval(transpiledCode);
