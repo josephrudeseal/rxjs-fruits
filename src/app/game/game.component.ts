@@ -168,12 +168,14 @@ export class GameComponent implements OnInit {
           this.isRunActive &&
           this.fruitsInPipe.length === 0) {
           this.isNoFruitsIncoming = true;
+          //TODO: flesh-out
           this._snackBar.open('error', 'ok');
           this.cancel();
         } else if (valid === false &&
           this.isRunActive &&
           this.currentExercise.expectedFruits.length > this.fruitsInPipe.length) {
           this.isTooLittleFruits = true;
+          //TODO: flesh-out
           this._snackBar.open('error', 'ok');
 
         }
