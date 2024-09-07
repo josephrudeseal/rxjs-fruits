@@ -1,3 +1,4 @@
+import { enableProdMode } from '@angular/core';
 // tslint:disable: no-shadowed-variable deprecation no-eval no-string-literal
 import { SoundService } from './shared/sound.service';
 import { ColorMixerService } from './shared/color-mixer.service';
@@ -15,7 +16,7 @@ import { distinct as distinctX, map as mapX, take as takeX, filter as filterX } 
 import { tap as tapX, distinctUntilChanged as distinctUntilChangedX } from 'rxjs/operators';
 import { skip as skipX, takeLast as takeLastX, skipLast as skipLastX, concatMap as concatMapX } from 'rxjs/operators';
 import { repeat as repeatX, takeWhile as takeWhileX, retry as retryX, catchError as catchErrorX } from 'rxjs/operators';
-import { groupBy as groupByX } from 'rxjs/operators';
+import { groupBy as groupByX, mergeMap as mergeMapX, toArray as toArrayX } from 'rxjs/operators';
 import { gsap } from 'gsap';
 import { MonacoEditorComponent, MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
 import { GameOverDialogComponent } from '../game-over-dialog/game-over-dialog.component';
@@ -107,6 +108,11 @@ export class GameComponent implements OnInit {
   isErrorInConsole = false;
   soundIconPath = '';
 
+  private _isArray = Array;
+  protected isArray(value: any) {
+    return this._isArray.isArray(value);
+  }
+
   constructor(
     public levelService: LevelService,
     public translate: TranslateService,
@@ -172,22 +178,29 @@ export class GameComponent implements OnInit {
     this.monacoLoader.isMonacoLoaded$
       .pipe(
         filter(isLoaded => isLoaded === true),
-        take(1)
+        take(1),
+        // groupBy(x => x),
+        // forkJoin([])
       )
       .subscribe({
         next: () => {
           this.httpClient
-            .get('assets/rx6.d.ts', { responseType: 'text' })
+            // .get('assets/allrxjs.d.ts', { responseType: 'text' })
+            .get('assets/rx6.d.ts', { responseType: 'text' })//
             .subscribe({
               next: data => {
-                console.log(data);
+                // console.log(data);
                 (window as any).monaco.languages.typescript.typescriptDefaults.addExtraLib(
                   data,
                   ''
                 );
+
                 // (window as any).monaco.languages.typescript.typescriptDefaults.addExtraLib(Rx, '');
               }
             });
+            // (window as any).monaco.languages.typescript.typescriptDefaults.addExtraLib(
+            //   '/src/assets/allrxjs.d.ts',
+            // );
 
           this.setupMonacoSettings();
           this.changeMonacoSettings();
@@ -237,8 +250,10 @@ export class GameComponent implements OnInit {
     let assertionFailed = false;
 
     for (let index = 0; index < this.fruitsInPipe.length; index++) {
+      console.log(this.fruitsInPipe, this.currentExercise)
       const fruit = this.fruitsInPipe[index];
-      assertionFailed = this.currentExercise.expectedFruits[index] !== fruit;
+      const expected = this.currentExercise.expectedFruits[index]['name'] ? this.currentExercise.expectedFruits[index]['name'] : this.currentExercise.expectedFruits[index];
+      assertionFailed = expected !== fruit;
     }
 
     return {
@@ -287,9 +302,10 @@ export class GameComponent implements OnInit {
     ) {
       return '';
     }
-
+    const fruit = this.currentExercise.expectedFruits[index]['name'] ? this.currentExercise.expectedFruits[index]['name'] : this.currentExercise.expectedFruits[index];
+    const fruitInPipe = this.fruitsInPipe[index];
     if (
-      this.currentExercise.expectedFruits[index] === this.fruitsInPipe[index]
+      fruit === fruitInPipe
     ) {
       return '✔';
     }
@@ -451,7 +467,8 @@ export class GameComponent implements OnInit {
     const concatMap = concatMapX;
     const forkJoin = forkJoinX;
     const groupBy = groupByX;
-
+    const mergeMap = mergeMapX;
+    const toArray = toArrayX;
     const transpiledCode = this.typescriptService.transpile(this.code);
     eval(transpiledCode);
   }

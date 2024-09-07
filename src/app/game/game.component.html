@@ -37,9 +37,10 @@
                     [innerHTML]="'EXERCISES.' + levelService.currentLevel.title + '.RECIPEDESCRIPTION' | uppercase | translate">
                 </p>
 
+                <!-- <ol *ngIf="isArray(currentExercise.expectedFruits)"> -->
                 <ol>
-                    <li *ngFor="let fruitName of currentExercise.expectedFruits; let i = index;">
-                        {{ 'APP.FRUITS.' + fruitName | uppercase | translate }} {{ assertFruitPipeIcon(i) }}
+                    <li *ngFor="let obj of currentExercise.expectedFruits; let i = index;">
+                        {{ 'APP.FRUITS.' + (obj?.name ? obj.name : obj) | uppercase | translate }} {{ assertFruitPipeIcon(i) }}
                     </li>
                 </ol>
 

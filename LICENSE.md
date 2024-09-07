@@ -1,4 +1,4 @@
-MIT License
+Original code is licensed under the MIT License:
 
 Copyright (c) 2020 Gregor Biswanger
 
@@ -19,3 +19,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+TODO: Modifications made by [Your Name/Company], licensed under the [Your License Name] License:
+
+TODO: [Include the text of your chosen license here, if different from MIT]

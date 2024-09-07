@@ -6,13 +6,17 @@
             group-by.</a></p>
 </div>
 <div *ngIf="currentLanguage === 'en'">
-    <p>The <code class="help" [appTooltip]="tooltip">group-by</code> operator... <a
-            href="https://rxjs.dev/api/operators/group-by" target="_blank">More infos about
-            group-by.</a></p>
-    
+  <p>The <code class="help" [appTooltip]="tooltip">group-by</code> operator... <a
+          href="https://rxjs.dev/api/operators/group-by" target="_blank">More infos about
+          group-by.</a></p>
+          <p>You receive a delivery of mixed fruits, where each fruit has a type and a name. The delivery contains apples and bananas, but some of them are labeled as "dirty" or "old." You want to group the fruits by their type (e.g., apples together, bananas together) and then process each fruit within those groups. Your task is to group the fruits and send each one down the conveyor belt. Ensure that you have the correct order of fruits within each group.
+
+            You may use any RxJS operators, but you should leverage <code class="help" [appTooltip]="tooltip">groupBy</code> to achieve the correct grouping.</p>
+
 </div>
 <div #tooltip class="tooltip codeTooltip">
     <pre>
         <code [highlight]="groupByCode"></code>
     </pre>
 </div>
+

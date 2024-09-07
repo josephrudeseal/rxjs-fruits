@@ -54,7 +54,7 @@
                 "input": "node_modules/monaco-editor",
                 "output": "assets/monaco-editor/"
               },
-              "src/assets/images/marbles-diagrams"
+              "src/assets/marbles-diagrams"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
