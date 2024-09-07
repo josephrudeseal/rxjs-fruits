@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TooltipDirective } from './tooltip.directive';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
     TooltipDirective,
     CommonModule,
     HighlightModule,
-    TranslateModule
+    TranslateModule,
+    MatSnackBarModule
   ],
   providers: [
     {

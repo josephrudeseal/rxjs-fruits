@@ -30,6 +30,7 @@ import { OnChange } from 'property-watch-decorator';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { OperatorInfo, Operator as rxjsOperator } from '../shared/operator-info.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-game',
@@ -127,7 +128,8 @@ export class GameComponent implements OnInit {
     private soundService: SoundService,
     private monacoLoader: MonacoEditorLoaderService,
     private httpClient: HttpClient,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     const soundSettings = this.localStorageService.loadSoundSettings();
@@ -166,11 +168,14 @@ export class GameComponent implements OnInit {
           this.isRunActive &&
           this.fruitsInPipe.length === 0) {
           this.isNoFruitsIncoming = true;
+          this._snackBar.open('error', 'ok');
           this.cancel();
         } else if (valid === false &&
           this.isRunActive &&
           this.currentExercise.expectedFruits.length > this.fruitsInPipe.length) {
           this.isTooLittleFruits = true;
+          this._snackBar.open('error', 'ok');
+
         }
       }
     });
@@ -478,7 +483,12 @@ export class GameComponent implements OnInit {
     this.resetCurrentState();
 
     console.error(error);
+    this.openSnackBar(error, 'Okay')
     this.isErrorInConsole = true;
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 
   addFruitToView(fruit: string): void {
