@@ -29,7 +29,6 @@ import { OnChange } from 'property-watch-decorator';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { OperatorInfo, Operator as rxjsOperator } from '../shared/operator-info.interface';
-import * as Rx from 'rxjs-compat/operator';
 
 @Component({
   selector: 'app-game',
@@ -181,6 +180,7 @@ export class GameComponent implements OnInit {
             .get('assets/rx6.d.ts', { responseType: 'text' })
             .subscribe({
               next: data => {
+                console.log(data);
                 (window as any).monaco.languages.typescript.typescriptDefaults.addExtraLib(
                   data,
                   ''
